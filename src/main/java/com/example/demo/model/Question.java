@@ -7,7 +7,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -41,6 +43,9 @@ public class Question {
     @Enumerated(EnumType.STRING)
     private AnswerType expectedType;
 
+    @OneToMany (mappedBy = "question", cascade = CascadeType.ALL)
+    private List<QuestionAndAnswer> listQuestionAndAnswer = new ArrayList<>();
+
     public Question(String qName, String text, String[] strings, String qCorrect, Dimension qDimension, int qOrder, double qWeight, AnswerType qAnswerType) {
         this.id = UUID.randomUUID().toString();
         this.name = qName;
@@ -58,5 +63,21 @@ public class Question {
         return String.format(
                 "Customer[id=%s, name='%s', questionText='%s', answerText='%s', correctAnswer='%s', dimension='%s',questionOrder='%s',weight='%s',expectedType='%s']",
                 id, name, questionText, Arrays.toString(answerText), correctAnswer, dimension, questionOrder, weight, expectedType);
+    }
+
+    public boolean equals (Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Question question = (Question) o;
+        if(this.id.equals(question.getId()) &&
+                this.name.equals(question.getQuestionText())&&
+                this.questionText.equals(question.getQuestionText())&&
+                this.answerText.equals(question.getAnswerText())&&
+                this.dimension == question.getDimension() &&
+                this.weight == question.getWeight()&&
+                this.expectedType == question.getExpectedType()){
+            return true;
+        }
+        return false;
     }
 }
