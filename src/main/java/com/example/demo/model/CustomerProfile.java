@@ -1,14 +1,13 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -25,6 +24,11 @@ public class CustomerProfile {
     private String description;
     private String goal;
     private HashMap<Dimension, Boolean> answers;
+    @OneToOne
+    @JoinColumn (name = "Assesment_FK")
+    private AssessmentView assessmentViewInProfile;
+    @ManyToMany (mappedBy = "customerProfiles",  cascade = CascadeType.ALL)
+    private List<RoadMap> roadMaps = new ArrayList<>();
 
     public CustomerProfile(CodeProfile codeProfile, String name, String description, String goal, Boolean[] booleanAnswer) {
         this.id = UUID.randomUUID().toString();

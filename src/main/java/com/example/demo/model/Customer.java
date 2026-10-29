@@ -1,7 +1,6 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,6 +23,9 @@ public class Customer {
     private String email;
     private String phone;
     private String address;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn (name ="AssessmentView_FK")
+    private AssessmentView assessmentViewInCustomer;
 
     // methods
     public String toString() {
