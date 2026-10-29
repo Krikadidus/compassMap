@@ -1,6 +1,7 @@
 package com.example.demo.utils;
 
 
+import com.example.demo.model.AssessmentView;
 import com.example.demo.model.Customer;
 import com.example.demo.model.RoadMap;
 import com.example.demo.service.CustomerService;
@@ -31,7 +32,8 @@ public class PopulatorDB {
                     faker.name().lastName(),
                     faker.internet().emailAddress(),
                     faker.phoneNumber().phoneNumber(),
-                    faker.address().fullAddress()
+                    faker.address().fullAddress(),
+                    new AssessmentView()
             ));
         }
         customerService.saveAll(customers);
