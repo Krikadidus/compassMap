@@ -1,30 +1,39 @@
 package com.example.demo.model;
 
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+@Entity
 @Data
 @NoArgsConstructor
 
 public class Answer {
+    @Id
+    private String id;
     @Enumerated(EnumType.STRING)
     private AnswerType expectedType;
-    private Object value;
+    private String value;
+    @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL)
+    private List<QuestionAndAnswer> listQuestionAndAnswer = new ArrayList<>();
 
     public Answer(AnswerType expectedType, Object value) {
+        this.id = UUID.randomUUID().toString();
         this.expectedType = expectedType;
         switch (expectedType) {
             case BOOLEAN:
-                this.value = (Boolean) value;
+                this.value = String.valueOf((Boolean) value);
                 break;
             case INTEGER:
-                this.value = (Integer) value;
+                this.value = String.valueOf((Integer) value);
                 break;
             case DOUBLE:
-                this.value = (Double) value;
+                this.value = String.valueOf((Double) value);
                 break;
             case TEXT:
                 this.value = (String) value;
@@ -34,7 +43,7 @@ public class Answer {
         }
     }
     public String toString() {
-        return value == null ? "" : value.toString();
+        return value == null ? "" : value;
     }
 
 }
