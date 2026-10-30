@@ -20,9 +20,9 @@ public class AssessmentView {
     private String id;
     @OneToOne (mappedBy = "assessmentViewInCustomer", cascade = CascadeType.ALL)
     private Customer customer;
-    private Instant timestap;
+    private Instant timestep;
     @OneToMany(mappedBy = "assessmentViewInQandA")
-    private ArrayList<QuestionAndAnswer> questions;
+    private ArrayList<QuestionAndAnswer> questionsAndAnswers;
     @OneToOne(mappedBy = "assessmentViewInProfile")
     private CustomerProfile profile;
 

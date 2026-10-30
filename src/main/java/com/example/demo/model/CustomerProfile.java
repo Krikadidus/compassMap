@@ -25,7 +25,7 @@ public class CustomerProfile {
     private String goal;
     private HashMap<Dimension, Boolean> answers;
     @OneToOne
-    @JoinColumn (name = "Assesment_FK")
+    @JoinColumn (name = "Assessment_FK")
     private AssessmentView assessmentViewInProfile;
     @ManyToMany (mappedBy = "customerProfiles",  cascade = CascadeType.ALL)
     private List<RoadMap> roadMaps = new ArrayList<>();

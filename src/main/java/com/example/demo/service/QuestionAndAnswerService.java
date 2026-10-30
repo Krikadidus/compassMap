@@ -11,6 +11,7 @@ import com.example.demo.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -51,27 +52,32 @@ public class QuestionAndAnswerService {
             System.out.println("QuestionAndAnswer is empty");
             return null;
         }
+        QuestionAndAnswer updatedQuestionAndAnswer = getQuestionAndAnswerById(questionAndAnswer.getId());
+        if (updatedQuestionAndAnswer == null) {
+            System.out.println("QuestionAndAnswer with id " + questionAndAnswer.getId() + " not found");
+            return null;
+        }
 
         Answer answer = questionAndAnswer.getAnswer();
         Question question = questionAndAnswer.getQuestion();
         AnswerType  answerType = questionAndAnswer.getAnswerType();
 
-        if(question == null){
-            System.out.println("Question inside the " +questionAndAnswer + " is empty.");
-            return null;
+        if(question != null){
+            if (!questionRepository.existsById(question.getId())) {
+                questionRepository.save(question);
+            }
+            updatedQuestionAndAnswer.setQuestion(question);
         }
         if(answer == null){
-                System.out.println("Answer inside the " + questionAndAnswer + " is empty.");
+            if (!answerRepository.existsById(answer.getId())) {
+                answerRepository.save(answer);
+            }
+            updatedQuestionAndAnswer.setAnswer(answer);
         }
-        if (answerType == null) {
-            System.out.println("AnswerType inside the " + questionAndAnswer + " is empty.");
+        if (answerType == null&& List.of(AnswerType.values()).contains(answerType)) {
+            updatedQuestionAndAnswer.setAnswerType(answerType);
         }
-
-        if (!questionRepository.existsById(question.getId()) && !answerRepository.existsById(answer.getId())) {
-            System.out.println("Question and answer not found. Need to create a new question and answer firstly.");
-            return null;
-        };
-        return questionAndAnswerRepository.save(questionAndAnswer);
+        return questionAndAnswerRepository.save(updatedQuestionAndAnswer);
     }
 }
 

@@ -1,11 +1,14 @@
 package com.example.demo.service;
 
 
+import com.example.demo.model.AnswerType;
+import com.example.demo.model.Dimension;
 import com.example.demo.model.Question;
 import com.example.demo.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -67,16 +70,16 @@ public class QuestionService {
         if (incoming.getCorrectAnswer() != null && !incoming.getCorrectAnswer().trim().isEmpty()) {
             existing.setCorrectAnswer(incoming.getCorrectAnswer());
         }
-        if (incoming.getDimension() != null) {
+        if (incoming.getDimension() != null && List.of(Dimension.values()).contains(incoming.getDimension())) {
             existing.setDimension(incoming.getDimension());
         }
-        if (incoming.getQuestionOrder() != 0) {
+        if (incoming.getQuestionOrder() != 0 ) {
             existing.setQuestionOrder(incoming.getQuestionOrder());
         }
         if (incoming.getWeight() != 0) {
             existing.setWeight(incoming.getWeight());
         }
-        if (incoming.getExpectedType() != null) {
+        if (incoming.getExpectedType() != null && List.of(AnswerType.values()).contains(incoming.getExpectedType())) {
             existing.setExpectedType(incoming.getExpectedType());
         }
         return questionRepository.save(existing);
