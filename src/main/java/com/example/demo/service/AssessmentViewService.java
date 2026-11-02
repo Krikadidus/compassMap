@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.model.AssessmentView;
+import com.example.demo.model.Customer;
+import com.example.demo.model.CustomerProfile;
 import com.example.demo.model.QuestionAndAnswer;
 import com.example.demo.repository.AssessmentViewRepository;
 import com.example.demo.repository.CustomerProfileRepository;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Optional;
 
 
@@ -71,11 +74,12 @@ public class AssessmentViewService {
             System.out.println("Assessment view with id " + incoming.getId() + " does not exist");
             return null;
         }
-        if (incoming.getCustomer()!=null) {
-            if (!customerRepository.existsById(incoming.getCustomer().getId())) {
-                customerRepository.save(incoming.getCustomer());
+        Customer customerForCheck = incoming.getCustomer();
+        if (customerForCheck!=null) {
+            if (!customerRepository.existsById(customerForCheck.getId())) {
+                customerRepository.save(customerForCheck);
             }
-            existing.setCustomer(incoming.getCustomer());
+            existing.setCustomer(customerForCheck);
         }
         if (incoming.getTimestep()!=null) {
             existing.setTimestep(incoming.getTimestep());
@@ -83,17 +87,20 @@ public class AssessmentViewService {
                 existing.setTimestep(Instant.now());
             }
         }
-        if (incoming.getQuestionsAndAnswers()!=null) {
-            if (!questionAndAnswerRepository.findAll().equals(incoming.getQuestionsAndAnswers())) {
-                System.out.println(incoming.getQuestionsAndAnswers() + "don´t have in repository, so need to change it in QuestionAndAnswer firstly");
+        ArrayList<QuestionAndAnswer> qAS = incoming.getQuestionsAndAnswers();
+        if (qAS != null) {
+            if (!questionAndAnswerRepository.findAll().equals(qAS)) {
+                System.out.println(qAS + "don´t have in repository, so need to change it in QuestionAndAnswer firstly");
                 return null;
             }
-            existing.setQuestionsAndAnswers(incoming.getQuestionsAndAnswers());
+            existing.setQuestionsAndAnswers(qAS);
         }
-        if (incoming.getProfile()!=null) {
-            String id = incoming.getProfile().getId();
+
+        CustomerProfile cust = incoming.getCustomerProfile();
+        if (cust!=null) {
+            String id = cust.getId();
             if (!customerProfileRepository.findById(id).isPresent()) {
-                System.out.println(incoming.getProfile() + "don´t have in repository, so need to change it in CustomerProfile firstly");
+                System.out.println(cust + "don´t have in repository, so need to change it in CustomerProfile firstly");
                 return null;
             }
         }
