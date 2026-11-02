@@ -24,7 +24,7 @@ public class AssessmentView {
     @OneToMany(mappedBy = "assessmentViewInQandA")
     private ArrayList<QuestionAndAnswer> questionsAndAnswers;
     @OneToOne(mappedBy = "assessmentViewInProfile")
-    private CustomerProfile profile;
+    private CustomerProfile customerProfile;
 
 }
 
