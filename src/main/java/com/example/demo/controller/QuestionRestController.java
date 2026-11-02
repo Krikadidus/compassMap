@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
-
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/api/v1/question")
+@RequestMapping("/api/v1/questions")
 public class QuestionRestController {
 
     @Autowired
@@ -53,6 +53,10 @@ public class QuestionRestController {
         Iterable<Question> questions =  questionService.getAllQuestions();
         System.out.println("Service getAllQuestions: " + questions);
         return questions;
+    }
+    @GetMapping("/count")
+    public long getCountOfQuestions(){
+        return questionService.countQuestions();
     }
 
     //------------------ DELETE ----------------------

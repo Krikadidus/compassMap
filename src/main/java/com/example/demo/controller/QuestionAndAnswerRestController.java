@@ -36,7 +36,7 @@ public class QuestionAndAnswerRestController {
             System.out.println("QuestionAndAnswer is empty");
             return null;
         }
-        System.out.println("Service updateQuestion: " + updatedQuestionAndAnswer);
+        System.out.println("Service updateQuestionAndAnswer: " + updatedQuestionAndAnswer);
         return updatedQuestionAndAnswer;
     }
     //----------------------------- GET -----------------------------
@@ -47,7 +47,7 @@ public class QuestionAndAnswerRestController {
             System.out.println("QuestionAndAnswer is not found");
             return null;
         }
-        System.out.println("Service getQuestion: " + found);
+        System.out.println("Service getQuestionAndAnswer: " + found);
         return found;
     }
     @GetMapping("/all")

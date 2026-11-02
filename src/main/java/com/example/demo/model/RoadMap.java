@@ -22,7 +22,7 @@ public class RoadMap {
     private String description;
     private int steps;
     private boolean completed;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "RoadMapAndCustomerProfile",
             joinColumns = @JoinColumn(name = "Roadmap_id"),
             inverseJoinColumns = @JoinColumn(name = "CustomerProfile_id"))

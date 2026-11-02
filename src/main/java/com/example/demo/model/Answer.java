@@ -18,7 +18,7 @@ public class Answer {
     private String id;
     @Enumerated(EnumType.STRING)
     private AnswerType expectedType;
-    private String value;
+    private String answerValue;
     @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL)
     private List<QuestionAndAnswer> listQuestionAndAnswer = new ArrayList<>();
 
@@ -27,23 +27,23 @@ public class Answer {
         this.expectedType = expectedType;
         switch (expectedType) {
             case BOOLEAN:
-                this.value = String.valueOf((Boolean) value);
+                this.answerValue = String.valueOf((Boolean) value);
                 break;
             case INTEGER:
-                this.value = String.valueOf((Integer) value);
+                this.answerValue = String.valueOf((Integer) value);
                 break;
             case DOUBLE:
-                this.value = String.valueOf((Double) value);
+                this.answerValue = String.valueOf((Double) value);
                 break;
             case TEXT:
-                this.value = (String) value;
+                this.answerValue = (String) value;
                 break;
             default:
-                this.value = null;
+                this.answerValue = null;
         }
     }
     public String toString() {
-        return value == null ? "" : value;
+        return answerValue == null ? "" : answerValue;
     }
 
 }
