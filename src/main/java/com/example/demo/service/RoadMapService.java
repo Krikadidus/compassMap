@@ -16,6 +16,7 @@ public class RoadMapService {
 
     @Autowired
     private RoadMapRepository roadMapRepository;
+    @Autowired
     private CustomerProfileRepository customerProfileRepository;
 
     //------------------ CREATE ----------------------

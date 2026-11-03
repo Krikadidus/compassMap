@@ -31,26 +31,28 @@ public class CustomerProfile {
     private String description;
     private String goal;
     @ElementCollection
-    private Map<Dimension, Boolean> answers;
+    private Map<Dimension, Boolean> profilesAnswers;
     @OneToOne
     @JoinColumn (name = "Assessment_FK")
     private AssessmentView assessmentViewInProfile;
     @ManyToMany (mappedBy = "customerProfiles")
     private List<RoadMap> roadMaps = new ArrayList<>();
 
-    public CustomerProfile(CodeProfile codeProfile, String name, String description, String goal, Boolean[] booleansAnswer) {
-        this.id = UUID.randomUUID().toString();
+    public CustomerProfile(String idNew,CodeProfile codeProfile, String name, String description, String goal, Boolean[] booleansAnswer) {
+        this.id = idNew;
         this.codeProfile = codeProfile;
         this.name = name;
         this.description = description;
         this.goal = goal;
-        this.answers = new EnumMap<>(Dimension.class);
+        this.profilesAnswers = new EnumMap<>(Dimension.class);
         for (int   j = 0; j < 4; j++) {
-            answers.put(Dimension.values()[j], booleansAnswer[j]);
+            profilesAnswers.put(Dimension.values()[j], booleansAnswer[j]);
         }
-
-
     }
+    public void addRoadMap(RoadMap roadMap) {
+        this.roadMaps.add(roadMap);
+    }
+
     public boolean equals (Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -60,7 +62,7 @@ public class CustomerProfile {
                 this.name.equals(customerProfile.getName()) &&
                 this.description.equals(customerProfile.getDescription()) &&
                 this.goal.equals(customerProfile.getGoal()) &&
-                this.answers.equals(customerProfile.getAnswers());
+                this.profilesAnswers.equals(customerProfile.getProfilesAnswers());
     }
     public String toString(){
         return id==null? "" : "Profile: " +id + name;

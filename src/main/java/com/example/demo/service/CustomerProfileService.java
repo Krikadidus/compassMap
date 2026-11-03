@@ -64,8 +64,8 @@ public class CustomerProfileService {
         if (incoming.getGoal() != null) {
             existing.setGoal(incoming.getGoal());
         }
-        if (incoming.getAnswers() != null) {
-            existing.setAnswers(incoming.getAnswers());
+        if (incoming.getProfilesAnswers() != null) {
+            existing.setProfilesAnswers(incoming.getProfilesAnswers());
         }
         return customerProfileRepository.save(existing);
     }

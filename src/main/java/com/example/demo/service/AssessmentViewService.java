@@ -21,8 +21,11 @@ public class AssessmentViewService {
 
     @Autowired
     private AssessmentViewRepository assessmentViewRepository;
+    @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
     private QuestionAndAnswerRepository questionAndAnswerRepository;
+    @Autowired
     private CustomerProfileRepository customerProfileRepository;
 
     //------------------ CREATE ----------------------

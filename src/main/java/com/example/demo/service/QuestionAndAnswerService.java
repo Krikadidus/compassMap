@@ -19,7 +19,9 @@ import java.util.Optional;
 public class QuestionAndAnswerService {
     @Autowired
     private QuestionAndAnswerRepository questionAndAnswerRepository;
+    @Autowired
     private QuestionRepository questionRepository;
+    @Autowired
     private AnswerRepository answerRepository;
 
     //----------------------------- CREATE -----------------------------
