@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,13 +19,18 @@ import java.util.ArrayList;
 public class AssessmentView {
     @Id
     private String id;
-    @OneToOne (mappedBy = "assessmentViewInCustomer", cascade = CascadeType.ALL)
+    @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn (name ="Customer_FK")
     private Customer customer;
     private Instant timestep;
     @OneToMany(mappedBy = "assessmentViewInQandA")
-    private ArrayList<QuestionAndAnswer> questionsAndAnswers;
-    @OneToOne(mappedBy = "assessmentViewInProfile")
+    private List<QuestionAndAnswer> questionsAndAnswers = new ArrayList<>();
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn (name = "profileID")
     private CustomerProfile customerProfile;
 
-}
 
+public void addQuestionAndAnswer(QuestionAndAnswer questionAndAnswer){
+    questionsAndAnswers.add(questionAndAnswer);
+}
+}

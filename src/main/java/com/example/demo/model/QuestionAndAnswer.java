@@ -17,30 +17,30 @@ public class QuestionAndAnswer {
     @Id
     private String id;
 
-    @ManyToOne (fetch = FetchType.LAZY)
+    @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn (name = "Question_FK")
     private Question question;
 
-    @ManyToOne (fetch = FetchType.LAZY)
+    @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn (name = "Answer_FK")
     private Answer answer;
 
     private AnswerType answerType;
     private Double scoreContribution;
 
-    @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn (name = "Assesment_FK")
+    @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn (name = "Assessment_FK")
     private AssessmentView assessmentViewInQandA;
 
 
-    public QuestionAndAnswer(Question newQuestion, Answer newAnswer) {
-        this.id = UUID.randomUUID().toString();
-
+    public QuestionAndAnswer(String idNew, Question newQuestion, Answer newAnswer) {
+        this.id = idNew;
         this.question = newQuestion;
         this.answer = newAnswer;
         this.answerType = question.getExpectedType();
         this.scoreContribution = 0.0;
     }
+
     /*
     public ArrayList<QuestionAndAnswer> Survey(Scanner scan, QuestionRepository questionRepository) {
         ArrayList<QuestionAndAnswer> listQuestionAndAnswer = new ArrayList<>();

@@ -32,10 +32,10 @@ public class CustomerProfile {
     private String goal;
     @ElementCollection
     private Map<Dimension, Boolean> profilesAnswers;
-    @OneToOne
-    @JoinColumn (name = "Assessment_FK")
-    private AssessmentView assessmentViewInProfile;
-    @ManyToMany (mappedBy = "customerProfiles")
+    @ManyToMany ()
+    @JoinTable(name = "RoadMapAndCustomerProfile",
+            joinColumns = @JoinColumn(name = "CustomerProfile_id"),
+            inverseJoinColumns = @JoinColumn(name = "Roadmap_id"))
     private List<RoadMap> roadMaps = new ArrayList<>();
 
     public CustomerProfile(String idNew,CodeProfile codeProfile, String name, String description, String goal, Boolean[] booleansAnswer) {
