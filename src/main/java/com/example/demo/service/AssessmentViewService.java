@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -90,7 +90,7 @@ public class AssessmentViewService {
                 existing.setTimestep(Instant.now());
             }
         }
-        ArrayList<QuestionAndAnswer> qAS = incoming.getQuestionsAndAnswers();
+        List<QuestionAndAnswer> qAS = incoming.getQuestionsAndAnswers();
         if (qAS != null) {
             if (!questionAndAnswerRepository.findAll().equals(qAS)) {
                 System.out.println(qAS + "don´t have in repository, so need to change it in QuestionAndAnswer firstly");

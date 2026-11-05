@@ -25,8 +25,8 @@ public class QuestionAndAnswerService {
     private AnswerRepository answerRepository;
 
     //----------------------------- CREATE -----------------------------
-    public QuestionAndAnswer createQuestionAndAnswer1(Question question, Answer answer) {
-        QuestionAndAnswer questionAndAnswer = new QuestionAndAnswer(question, answer);
+    public QuestionAndAnswer createQuestionAndAnswer1(String idnew, Question question, Answer answer) {
+        QuestionAndAnswer questionAndAnswer = new QuestionAndAnswer(idnew,question, answer);
         // call repository to use SAVE operation to save data to h2 db
         QuestionAndAnswer createdQuestionAndAnswer = questionAndAnswerRepository.save(questionAndAnswer);
         System.out.println("Service created question and answer: " +  createdQuestionAndAnswer);

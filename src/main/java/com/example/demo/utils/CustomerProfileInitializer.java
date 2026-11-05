@@ -1,7 +1,8 @@
-package com.example.demo.model;
+package com.example.demo.utils;
 
+import com.example.demo.model.CodeProfile;
+import com.example.demo.model.CustomerProfile;
 import com.example.demo.repository.CustomerProfileRepository;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 @Component
 public class CustomerProfileInitializer {
@@ -83,7 +84,7 @@ public class CustomerProfileInitializer {
                     CodeProfile.DATA_SCIENTIST_PROGRAMMING_LEARNER,
                     "Data scientist who wants to learn programming and ML",
                     "Already knows ML and wants to strengthen their programming fundamentals",
-                    "Data scientist who wants to learn programmingand ML",
+                    "Data scientist who wants to learn programming and ML",
                     new Boolean[]{false, true, true, true}
 
             ));

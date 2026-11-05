@@ -17,8 +17,8 @@ public class QuestionAndAnswerRestController {
 
     //----------------------------- Create -----------------------------
     @PostMapping("/create_part")
-    public QuestionAndAnswer createQuestionAndAnswer1(@RequestBody Question question, Answer answer) {
-        QuestionAndAnswer newQuestionAndAnswer = questionAndAnswerService.createQuestionAndAnswer1(question,answer);
+    public QuestionAndAnswer createQuestionAndAnswer1(@RequestParam("id") String idnew, @RequestBody Question question, Answer answer) {
+        QuestionAndAnswer newQuestionAndAnswer = questionAndAnswerService.createQuestionAndAnswer1(idnew, question,answer);
         System.out.println("Service createQuestionAndAnswer: " + newQuestionAndAnswer);
         return newQuestionAndAnswer;
     }
