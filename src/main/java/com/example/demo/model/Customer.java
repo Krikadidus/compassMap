@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,9 +24,18 @@ public class Customer {
     private String email;
     private String phone;
     private String address;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn (name ="AssessmentView_FK")
+    @JsonIgnore
+    @OneToOne(mappedBy = "customer")
     private AssessmentView assessmentViewInCustomer;
+
+    public Customer(String id, String firstName, String lastName, String email, String phone, String address) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+    }
 
     // methods
     public String toString() {

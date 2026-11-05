@@ -65,6 +65,10 @@ public class Question {
                 id, name, questionText, Arrays.toString(answerText), correctAnswer, dimension, questionOrder, weight, expectedType);
     }
 
+    public void addQuestionAndAnswer(QuestionAndAnswer questionAndAnswer) {
+        this.listQuestionAndAnswer.add(questionAndAnswer);
+    }
+
     public boolean equals (Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

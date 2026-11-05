@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,10 +26,8 @@ public class RoadMap {
     Map<String,String> stepsItemsSummary;
     private int steps;
     private boolean completed;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "RoadMapAndCustomerProfile",
-            joinColumns = @JoinColumn(name = "Roadmap_id"),
-            inverseJoinColumns = @JoinColumn(name = "CustomerProfile_id"))
+    @JsonIgnore
+    @ManyToMany(mappedBy = "roadMaps")
     private List<CustomerProfile> customerProfiles = new ArrayList<>();
 
 
