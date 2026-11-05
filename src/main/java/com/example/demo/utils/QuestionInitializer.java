@@ -1,11 +1,13 @@
-package com.example.demo.model;
+package com.example.demo.utils;
+import com.example.demo.model.AnswerType;
+import com.example.demo.model.Dimension;
+import com.example.demo.model.Question;
 import com.example.demo.repository.QuestionRepository;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 
 @Component
-public class QuestionInitializer implements CommandLineRunner {
+public class QuestionInitializer {
 
     private final QuestionRepository questionRepository;
 
@@ -13,8 +15,8 @@ public class QuestionInitializer implements CommandLineRunner {
     this.questionRepository = questionRepository;
     }
 
-    @Override
-    public void run(String... args) {
+
+    public void initialize() {
         if (questionRepository.count() == 0) {
             questionRepository.save(new Question(
                     "q001",
