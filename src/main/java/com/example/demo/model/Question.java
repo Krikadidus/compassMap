@@ -61,8 +61,20 @@ public class Question {
 
     public String toString() {
         return String.format(
-                "Customer[id=%s, name='%s', questionText='%s', answerText='%s', correctAnswer='%s', dimension='%s',questionOrder='%s',weight='%s',expectedType='%s']",
-                id, name, questionText, Arrays.toString(answerText), correctAnswer, dimension, questionOrder, weight, expectedType);
+                "Customer[id=%s, name='%s', questionText='%s', answerText='%s', correctAnswer='%s', dimension='%s',questionOrder='%s',weight='%s',expectedType='%s',listQuestionAndAnswer='%s']",
+                id,
+                name,
+                questionText,
+                Arrays.toString(answerText),
+                correctAnswer,
+                dimension,
+                questionOrder,
+                weight,
+                expectedType,
+                Arrays.toString(listQuestionAndAnswer.stream()
+                .map(QuestionAndAnswer::getId)
+                .toArray())
+                );
     }
 
     public void addQuestionAndAnswer(QuestionAndAnswer questionAndAnswer) {
@@ -73,15 +85,12 @@ public class Question {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Question question = (Question) o;
-        if(this.id.equals(question.getId()) &&
+        return this.id.equals(question.getId()) &&
                 this.name.equals(question.getQuestionText())&&
                 this.questionText.equals(question.getQuestionText())&&
-                this.answerText.equals(question.getAnswerText())&&
+                Arrays.equals(this.answerText, question.getAnswerText()) &&
                 this.dimension == question.getDimension() &&
                 this.weight == question.getWeight()&&
-                this.expectedType == question.getExpectedType()){
-            return true;
-        }
-        return false;
+                this.expectedType == question.getExpectedType();
     }
 }
