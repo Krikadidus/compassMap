@@ -2,17 +2,34 @@ package com.example.demo.service;
 
 import com.example.demo.model.CustomerProfile;
 import com.example.demo.repository.CustomerProfileRepository;
+import com.example.demo.repository.RoadMapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
+
 @Service
 public class CustomerProfileService {
     @Autowired
     private CustomerProfileRepository customerProfileRepository;
+    @Autowired
+    private RoadMapRepository roadMapRepository;
 
     //------------------ CREATE ----------------------
     public CustomerProfile createCustomerProfile(CustomerProfile customerProfile) {
+        if(customerProfile == null ){
+            System.out.println("Customer profile is null");
+        }
+        if (customerProfile.getId()==null){
+            customerProfile.setId(UUID.randomUUID().toString());
+        }
+        if (!customerProfile.getRoadMaps().isEmpty()) {
+        customerProfile.getRoadMaps()
+                .forEach(roadMap ->
+                    roadMapRepository.findById(roadMap.getId()).orElseThrow(() ->
+                            new IllegalArgumentException("Roadmap not found: " + roadMap.getId())));
+        }
 
         // call repository to use SAVE operation to save data to h2 db
         CustomerProfile createdCustomerProfile = customerProfileRepository.save(customerProfile);

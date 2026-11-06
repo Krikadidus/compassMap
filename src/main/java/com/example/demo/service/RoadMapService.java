@@ -10,6 +10,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class RoadMapService {
@@ -21,7 +22,20 @@ public class RoadMapService {
 
     //------------------ CREATE ----------------------
     public RoadMap createRoadMap(RoadMap roadMap) {
+        if (roadMap == null) {
+            System.out.println("RoadMap not created, because the roadMap is null");
+            return null;
+        }
+        if (roadMap.getId() == null) {
+            roadMap.setId(UUID.randomUUID().toString());
+        }
 
+        if (!roadMap.getCustomerProfiles().isEmpty()) {
+            roadMap.getCustomerProfiles()
+                    .forEach(customerProfile ->
+                            customerProfileRepository.findById(customerProfile.getId()).orElseThrow(() ->
+                                    new IllegalArgumentException("customerProfile not found: " + customerProfile.getId())));
+        }
         // call repository to use SAVE operation to save data to h2 db
         RoadMap createdRoadMap = roadMapRepository.save(roadMap);
         System.out.println("Service created roadMap: " + createdRoadMap);

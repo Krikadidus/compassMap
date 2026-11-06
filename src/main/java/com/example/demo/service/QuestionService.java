@@ -4,21 +4,37 @@ package com.example.demo.service;
 import com.example.demo.model.AnswerType;
 import com.example.demo.model.Dimension;
 import com.example.demo.model.Question;
+import com.example.demo.repository.QuestionAndAnswerRepository;
 import com.example.demo.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 
 @Service
 public class QuestionService {
     @Autowired
     private QuestionRepository questionRepository;
+    @Autowired
+    private QuestionAndAnswerRepository questionAndAnswerRepository;
 
 //------------------ CREATE ----------------------
     public Question createQuestion(Question question) {
+        if (question == null) {
+            System.out.println("question not created,because it is null");
+            return null;
+        }
+        if (question.getId() == null) {
+            question.setId(UUID.randomUUID().toString());
+        }
+        if(!question.getListQuestionAndAnswer().isEmpty()){
+                question.getListQuestionAndAnswer().forEach(questionAndAnswer ->
+                questionAndAnswerRepository.findById(questionAndAnswer.getId()).orElseThrow(() ->
+                        new IllegalArgumentException("QuestionAndAnswer not found: " + questionAndAnswer.getId())));
+        }
 
         // call repository to use SAVE operation to save data to h2 db
         Question createdQuestion = questionRepository.save(question);
